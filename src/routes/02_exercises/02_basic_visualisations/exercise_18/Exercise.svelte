@@ -8,11 +8,24 @@
   
     // Array
     const values = [2, 4, 6, 7, 9];
+
+    import {scaleLog} from "d3-scale";
+    const scale = scaleLog()
+      .domain([1, 10])
+      .range([0,innerWidth]);
+
+    import {axisBottom} from "d3-axis"
+    import {select} from "d3-selection"
+    const xAxis = axisBottom(scale)
+
   </script>
   
   <svg viewBox="0 0 {width} {height}">
+    <g transform="translate({10},{10})" use:xAxis(select(scale))></g>
     <g transform="translate({margin.left},{margin.top})">
-      <!--  -->
+      {#each values as value}
+        <circle cx={scale(value)} cy={innerHeight/2} r="10" fill="teal" />
+      {/each}
     </g>
   </svg>
   
