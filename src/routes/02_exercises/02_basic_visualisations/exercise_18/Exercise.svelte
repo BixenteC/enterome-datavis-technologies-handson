@@ -16,16 +16,19 @@
 
     import {axisBottom} from "d3-axis"
     import {select} from "d3-selection"
-    const xAxis = axisBottom(scale)
+    function xAxisBuilder(handle) {
+      const xAxis = axisBottom(scale)
+      xAxis(select(handle))
+    }
 
   </script>
   
   <svg viewBox="0 0 {width} {height}">
-    <g transform="translate({10},{10})" use:xAxis(select(scale))></g>
     <g transform="translate({margin.left},{margin.top})">
       {#each values as value}
         <circle cx={scale(value)} cy={innerHeight/2} r="10" fill="teal" />
       {/each}
     </g>
+    <g transform="translate({0},{innerHeight/2})" use:xAxisBuilder></g>
   </svg>
   
